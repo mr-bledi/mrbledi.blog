@@ -12,7 +12,7 @@
     <div class="col-md-8 col-md-offset-2">
       <h1>Create New Post</h1>
       <hr>
-      {!! Form::open(array('route' => 'posts.store', 'data-parsley-validate' => '')) !!}
+      {!! Form::open(array('route' => 'posts.store', 'data-parsley-validate' => '', 'files' => true)) !!}
 
         {{ Form::label('title', 'Title:') }}
         {{ Form::text('title', null, array('class' => 'form-control', 'required' => '', 'maxlength' => '255'))}}
@@ -34,8 +34,11 @@
           @endforeach
         </select>
 
-        {{ Form::label('body', 'Post Body:') }}
-        {{ Form::textarea('body', null, array('class' => 'form-control', 'required' => ''))}}
+        {{ Form::label('featured_image', 'Upload Featured Image', ['class' => 'form-spacing-top']) }}
+        {{ Form::file('featured_image') }}
+
+        {{ Form::label('body', 'Post Body:', ['class' => 'form-spacing-top']) }}
+        {{ Form::textarea('body', null, array('class' => 'form-control'))}}
 
         {{ Form::submit('Create Post', array('class' => 'btn btn-success btn-lg', 'style' => 'margin-top: 20px;'))}}
 
@@ -49,8 +52,18 @@
 @section('scripts')
   {!! Html::script('js/parsley.min.js') !!}
   {!! Html::script('js/select2.min.js') !!}
+  {!! Html::script('js/tinymce/tinymce.min.js') !!}
+  {!! Html::script('js/tinymce/jquery.tinymce.min.js') !!}
+
+  <script>tinymce.init({
+     selector:'textarea',
+      plugins: 'link code',
+      menubar: false
+    });
+ </script>
 
   <script type="text/javascript">
     $('.select2-multi').select2();
   </script>
+
 @endsection

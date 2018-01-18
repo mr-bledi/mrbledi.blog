@@ -7,7 +7,7 @@
 
 @section('content')
   <div class="row">
-    {!! Form::model($post, ['route' => ['posts.update', $post->id], 'method' => 'PUT']) !!}
+    {!! Form::model($post, ['route' => ['posts.update', $post->id], 'method' => 'PUT', 'files' => true]) !!}
 
     <div class="col-md-8">
       {{ Form::label('title', 'Title:') }}
@@ -22,6 +22,9 @@
 
       {{ Form::label('category_id', 'Category:') }}
       {{ Form::select('category_id', $categories, null, ['class' => 'form-control']) }}
+
+      {{ Form::label('featured_image', 'Uploade Featured Image:') }}
+      {{ Form::file('featured_image') }}
 
       {{ Form::label('body', 'Body:', ["class" => 'form-spacing-top']) }}
       {{ Form::textarea('body', null, ["class" => 'form-control']) }}
@@ -57,6 +60,16 @@
 
 @section('scripts')
   {!! Html::script('js/select2.min.js') !!}
+  {!! Html::script('js/tinymce/tinymce.min.js') !!}
+  {!! Html::script('js/tinymce/jquery.tinymce.min.js') !!}
+
+  <script>tinymce.init({
+     selector:'textarea',
+      plugins: 'link code',
+      menubar: false
+    });
+ </script>
+
 
   <script type="text/javascript">
     $('.select2-multi').select2();

@@ -6,3 +6,10 @@
 .form-spacing-top {
   margin-top: 25px;
 }
+
+.comment-created{
+  font-size: 11px;
+  color: grey;
+  display: block;
+  font-style: italic;
+}

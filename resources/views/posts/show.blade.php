@@ -6,19 +6,49 @@
   <div class="row">
     <div class="col-md-8">
       <h1>{{ $post->title }}</h1>
-      <p class="lead">{{ $post->body }}</p>
-      <hr>
 
+      <img src="{{asset('images/'.$post->image)}}" alt="">
+
+      <p class="lead">{!! $post->body !!}</p>
+      <br>
       <div class="tags">
         Tags:
       @foreach ($post->tags as $tag)
         <span class="label label-default">{{ $tag->name }}</span>
       @endforeach
       </div>
+      <hr>
+      <div id="backend-comments" style="margin-top:50px;">
+        <h3> <i> Comments </italic> </i> {{ $post->comments()->count() }} total </small> </h3>
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Comment</th>
+              <th width="70px"> Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach ($post->comments as $comment)
+              <tr>
+                <td> {{ $comment->name }} </td>
+                <td> {{ $comment->email }} </td>
+                <td> {{ $comment->comment }} </td>
+                <td>
+                  <a href="{{ route('comments.edit', $comment->id) }}" alt="Edit" class="btn btn-xs btn-primary"> <span class="glyphicon glyphicon-pencil"></span> </a>
+                  <a href="{{ route('comments.delete', $comment->id) }}" alt="Delete" class="btn btn-xs btn-danger"> <span class="glyphicon glyphicon-trash"></span> </a>
+                </td>
+              </tr>
+            @endforeach
+          </tbody>
+        </table>
+      </div>
 
     </div>
     <div class="col-md-4">
-      <div class="well">
+      <div class="well" style="margin:22px 0;">
         <dl class="dl-horizontal">
           <label>Category:</label>
           <p>{{ $post->category->name }}</p>
